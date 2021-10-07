@@ -1,0 +1,67 @@
+{
+  "plugins": ["boundaries"],
+  "parserOptions": {
+    "sourceType": "script"
+  },
+  "env": {
+    "node": true,
+    "browser": false
+  },
+  "extends": ["plugin:boundaries/strict"],
+  "rules": {
+    "no-console": 1,
+
+    "import/no-cycle": 0,
+    "import/extensions": 0,
+
+    "boundaries/element-types": [
+      2,
+      {
+        "default": "disallow",
+        "rules": [
+          {
+            "from": "business-logic",
+            "allow": ["utils", "data-access", "business-logic"]
+          },
+          {
+            "from": "config",
+            "allow": ["utils", "config"]
+          },
+          {
+            "from": "controllers",
+            "allow": ["utils", "business-logic", "controllers"]
+          },
+          {
+            "from": "data-access",
+            "allow": ["utils", "data-access"]
+          },
+          {
+            "from": "init",
+            "allow": ["utils", "routes", "middleware", "init"]
+          },
+          {
+            "from": "middleware",
+            "allow": ["utils", "middleware"]
+          },
+          {
+            "from": "routes",
+            "allow": ["controllers", "middleware", "utils"]
+          },
+          { "from": "utils", "allow": ["utils"] }
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "boundaries/elements": [
+      { "type": "business-logic", "pattern": "business-logic" },
+      { "type": "config", "pattern": "config" },
+      { "type": "controllers", "pattern": "controllers" },
+      { "type": "data-access", "pattern": "data-access" },
+      { "type": "init", "pattern": "./api/index.js", "mode": "full" },
+      { "type": "middleware", "pattern": "middleware" },
+      { "type": "routes", "pattern": "routes" },
+      { "type": "utils", "pattern": "utils" }
+    ]
+  }
+}
